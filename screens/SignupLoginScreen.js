@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TextInput, TouchableOpacity, Text} from 'react-native';
 import {Header} from 'react-native-elements';
-import {SafeAreaProvider} from 'react-native-safe-area-provider'
+import {SafeAreaProvider} from 'react-native-safe-area-context'
 import * as firebase from 'firebase'
 import db from '../config'
 
@@ -27,7 +27,7 @@ export default class SignupLogin extends React.Component{
             var errorMessage = error.errorMessage
             return alert(errorMessage)
         })
-    
+        }
     
         userSignUp = (email, password) => {
             firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -39,7 +39,7 @@ export default class SignupLogin extends React.Component{
                 var errorMessage = error.errorMessage
                 return alert(errorMessage)
             })
-        }}   
+        }   
 
     render()
     {
