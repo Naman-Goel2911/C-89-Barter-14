@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {StyleSheet, View, TextInput, TouchableOpacity, Text, Modal, ScrollView, KeyboardAvoidingView} from 'react-native';
 import {Header} from 'react-native-elements';
-import {SafeAreaProvider} from 'react-native-safe-area-context'
 import * as firebase from 'firebase'
 import db from '../config'
 
@@ -302,7 +301,8 @@ const styles = StyleSheet.create({
         justifyContent:'center', 
         borderWidth:1, 
         borderRadius:10, 
-        marginTop:30 
+        marginTop:30,
+        alignSelf: 'center'
     }, 
     registerButtonText:{ 
         color:'#ff5722', 
@@ -315,5 +315,6 @@ const styles = StyleSheet.create({
         justifyContent:'center', 
         alignItems:'center', 
         marginTop:5, 
+        alignSelf: 'center'
     }
 })
