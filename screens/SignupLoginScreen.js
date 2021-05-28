@@ -69,6 +69,7 @@ export default class SignupLogin extends React.Component{
         }  
         
         showModal = () => {
+            return(
             <Modal
             animationType = 'fade'
             transparent = {true}
@@ -175,12 +176,13 @@ export default class SignupLogin extends React.Component{
                     </ScrollView>
                 </View>
             </Modal>
+            )
         }
 
     render()
     {
         return(
-            <SafeAreaProvider>
+           
                 <View>
                     {this.showModal()}
                     <Header
@@ -232,7 +234,7 @@ export default class SignupLogin extends React.Component{
                         </TouchableOpacity>
                     </View>
                 </View>
-            </SafeAreaProvider>
+          
         )
     }
 }
