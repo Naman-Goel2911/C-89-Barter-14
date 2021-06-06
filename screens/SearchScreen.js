@@ -46,8 +46,13 @@ export default class SearchScreen extends React.Component{
             subtitle = {item.item_description}
             titleStyle = {{color: 'black', fontWeight: 'bold'}}
             rightElement = {
-                <TouchableOpacity style = {styles.button}>
-                    <Text style = {{color: "black"}}>View</Text>
+                <TouchableOpacity 
+                style = {styles.button}
+                onPress = {()=> {
+                    this.props.navigation.navigate('UserDetails', {'details': item})
+                }}
+                >
+                    <Text style = {{color: "black"}}>Exchange</Text>
                 </TouchableOpacity>
             }
             bottomDivider
