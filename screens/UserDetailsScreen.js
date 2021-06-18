@@ -2,7 +2,7 @@ import * as React from 'react'
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native'
 import firebase from 'firebase'
 import db from '../config'
-import {Header, Icon} from 'react-native-elements'
+import {Header, Icon, Card} from 'react-native-elements'
 
 export default class UserDetailsScreen extends React.Component{
 
@@ -33,9 +33,9 @@ export default class UserDetailsScreen extends React.Component{
         .then((snapshot)=>{
             snapshot.forEach((doc)=> {
                 this.setState({
-                    receiverName: doc.data().first_name,
-                    receiverContact: doc.data().contact,
-                    receiverAddress: doc.data().address,
+                    userName: doc.data().first_name,
+                    userContact: doc.data().contact,
+                    userAddress: doc.data().address,
                 })
             })
         })
@@ -51,7 +51,7 @@ export default class UserDetailsScreen extends React.Component{
 
     updateItemStatus = () => {
         db.collection('MyBarters').add({
-            item_name: this.state.bookName,
+            item_name: this.state.itemName,
             exchanger_name: this.state.requestId,
             exchanger_contact: this.state.userContact,
             exchanger_address: this.state.userAddress,
@@ -86,7 +86,7 @@ export default class UserDetailsScreen extends React.Component{
                         </Card>
                         <Card>
                             <Text style = {{fontWeight: 'bold'}}>
-                                Description: {this.state.item_description}
+                                Description: {this.state.itemDescription}
                             </Text>
                         </Card>
                     </Card>
@@ -98,17 +98,17 @@ export default class UserDetailsScreen extends React.Component{
                     >
                         <Card>
                             <Text style = {{fontWeight: 'bold'}}>
-                                Name: {this.state.receiverName}
+                                Name: {this.state.receiverId}
                             </Text>
                         </Card>
                         <Card>
                             <Text style = {{fontWeight: 'bold'}}>
-                                Contact: {this.state.receiverContact}
+                                Contact: {this.state.userContact}
                             </Text>
                         </Card>
                         <Card>
                             <Text style = {{fontWeight: 'bold'}}>
-                                Address: {this.state.receiverAddress}
+                                Address: {this.state.userAddress}
                             </Text>
                         </Card>
                     </Card>

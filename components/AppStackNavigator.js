@@ -1,10 +1,11 @@
+import * as React from 'react'
 import {createStackNavigator} from 'react-navigation-stack'
 import UserDetailsScreen from '../screens/UserDetailsScreen'
-import AppDrawerNavigator from './AppDrawerNavigator'
+import SearchScreen from '../screens/SearchScreen'
 
 export const AppStackNavigator = createStackNavigator({
     DrawerNavigator: {
-        screen: AppDrawerNavigator,
+        screen: SearchScreen,
         navigationOptions: {
             headerShown: false
         }
@@ -16,5 +17,5 @@ export const AppStackNavigator = createStackNavigator({
         }
     },
 },
-{initialRouteName: 'BookDonateList'}
+{initialRouteName: 'DrawerNavigator'}
 )

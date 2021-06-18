@@ -6,9 +6,9 @@ import {Header} from 'react-native-elements'
 
 export default class SearchScreen extends React.Component{
 
-    constructor()
+    constructor(props)
     {
-        super()
+        super(props)
         this.state = {
             search: '',
             requestedBarterList: []

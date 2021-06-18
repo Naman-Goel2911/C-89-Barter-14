@@ -1,6 +1,6 @@
 import * as React from 'react'
-import {Text, View, StyleSheet} from 'react-native'
-import {Header} from 'react-native-elements'
+import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
+import {Header, ListItem, Icon} from 'react-native-elements'
 import firebase from 'firebase'
 import db from '../config'
 
@@ -12,7 +12,7 @@ export default class MyBarters extends React.Component{
         super()
         this.state = {
             userId: firebase.auth().currentUser.email,
-            donorName: '',
+            userName: '',
             MyBarters: []
         }
         this.requestRef = null
@@ -30,9 +30,14 @@ export default class MyBarters extends React.Component{
     getAllBarters = () => {
         this.requestRef = db.collection('MyBarters').where('exchanger_name2', '==', this.state.userId)
         .onSnapshot((snapshot)=> {
-            var myBarters = snapshot.docs.map(document => document.data());
+            var myBarters = []
+            snapshot.docs.map((doc)=> {
+                var donation = doc.data()
+                donation['doc_id']= doc.id
+                myBarters.push(donation)
+            });
             this.setState({
-                allDonations: myBarters
+                MyBarters: myBarters
             })
         })
     }
@@ -44,7 +49,7 @@ export default class MyBarters extends React.Component{
         key = {i}
         title = {item.item_name}
         subtitle = {'Receiver: ' + item.exchanger_name2+'n/status' + item.request_status}
-        leftElement = {<Icon name = 'item' type = 'font-awesome' color = '#696969' />}
+        leftElement = {<Icon name = 'book' type = 'font-awesome' color = '#696969' />}
         titleStyle = {{color: 'black', fontWeight: 'bold'}}
         rightElement = {
             <TouchableOpacity style = {styles.button}>
@@ -52,7 +57,7 @@ export default class MyBarters extends React.Component{
             </TouchableOpacity>
         }
         bottomDivider
-        />
+        />  
     }
     
     render()
