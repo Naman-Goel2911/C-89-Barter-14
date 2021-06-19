@@ -1,10 +1,10 @@
 import * as React from 'react'
 import {Text, View, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
-import {Header} from 'react-native-elements'
 import { KeyboardAvoidingViewBase } from 'react-native'
 import firebase from 'firebase'
 import db from '../config'
+import MyHeader from '../components/MyHeader'
 
 export default class BarterRequestScreen extends React.Component{
     constructor()
@@ -45,13 +45,9 @@ export default class BarterRequestScreen extends React.Component{
         return(
             <SafeAreaProvider>
                 <View>
-                    <Header 
-                    backgroundColor = {'#9c8210'}
-                    centerComponent = 
-                    {{
-                        text: 'Barter',
-                        style: { color: '#fff', fontSize: 20 },
-                    }}
+                    <MyHeader 
+                    title = 'Barter' 
+                    navigation = {this.props.navigation}
                     />
                     <KeyboardAvoidingView style = {styles.keyBoardStyle}>
                         <TextInput 

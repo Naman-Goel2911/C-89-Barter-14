@@ -3,6 +3,7 @@ import {Text, View, TextInput, TouchableOpacity, StyleSheet} from 'react-native'
 import {Header} from 'react-native-elements'
 import db from '../config'
 import firebase from 'firebase'
+import MyHeader from '../components/MyHeader'
 
 export default class SettingsScreen extends React.Component{
     constructor()
@@ -56,14 +57,10 @@ export default class SettingsScreen extends React.Component{
     {
         return(
             <View>
-                <Header
-                backgroundColor = {'#9c8210'}
-                centerComponent = 
-                {{
-                    text: 'Settings',
-                    style: { color: '#fff', fontSize: 20 },
-                }}
-                />
+                    <MyHeader 
+                    title = 'Barter' 
+                    navigation = {this.props.navigation}
+                    />
                 <View>
                     <TextInput 
                     style = {styles.formTextInput}

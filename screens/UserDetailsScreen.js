@@ -3,6 +3,7 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native'
 import firebase from 'firebase'
 import db from '../config'
 import {Header, Icon, Card} from 'react-native-elements'
+import MyHeader from '../components/MyHeader'
 
 export default class UserDetailsScreen extends React.Component{
 
@@ -79,13 +80,9 @@ export default class UserDetailsScreen extends React.Component{
         return(
             <View style = {{flex: 1}}>
                  <View style = {{flex: 0.1}}>
-                    <Header 
-                    leftComponent = {<Icon name = 'arrow-left' type = 'feather' color = 'black' onPress = {()=> {
-                        this.props.navigation.goBack()
-                    }}
-                    centerComponent = {{text: 'Barter Item', style: {color: 'black', fontSize: 20, fontWeight: 'bold'}}}
-                    />}
-                    backgroundColor = 'yellow'
+                    <MyHeader 
+                    title = 'Barter' 
+                    navigation = {this.props.navigation}
                     />
                 </View>
                 <View style = {{flex: 0.3}}>

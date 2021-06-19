@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
 import {Header, ListItem, Icon} from 'react-native-elements'
 import firebase from 'firebase'
 import db from '../config'
+import MyHeader from '../components/MyHeader'
 
 export default class MyBarters extends React.Component{
     static navigationOptions = { header: null }
@@ -113,9 +114,9 @@ export default class MyBarters extends React.Component{
         return(
             <View style = {{flex: 1}}>
                 <View style = {{flex: 0.1}}>
-                    <Header 
-                    centerComponent = {{text: 'My Barters', style: {color: 'black', fontSize: 20, fontWeight: 'bold'}}}
-                    backgroundColor = '#9c8210'
+                    <MyHeader 
+                    title = 'Barter' 
+                    navigation = {this.props.navigation}
                     />
                 </View>
                 <View style = {{flex: 1}}>

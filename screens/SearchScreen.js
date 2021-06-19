@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native'
 import db from '../config'
 import { ListItem} from 'react-native-elements'
 import {Header} from 'react-native-elements'
+import MyHeader from '../components/MyHeader'
 
 export default class SearchScreen extends React.Component{
 
@@ -65,14 +66,10 @@ export default class SearchScreen extends React.Component{
         return(
             <View style = {{flex: 1}}>
                <View>
-               <Header
-                    backgroundColor = {'#9c8210'}
-                    centerComponent = 
-                    {{
-                        text: 'Barter',
-                        style: { color: '#fff', fontSize: 20 },
-                    }}
-                />
+                    <MyHeader 
+                    title = 'Barter' 
+                    navigation = {this.props.navigation}
+                    />
                </View>
                <View>
                {

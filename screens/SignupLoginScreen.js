@@ -3,6 +3,7 @@ import {StyleSheet, View, TextInput, TouchableOpacity, Text, Modal, ScrollView, 
 import {Header} from 'react-native-elements';
 import * as firebase from 'firebase'
 import db from '../config'
+import MyHeader from '../components/MyHeader'
 
 export default class SignupLogin extends React.Component{
     
@@ -184,13 +185,9 @@ export default class SignupLogin extends React.Component{
            
                 <View>
                     {this.showModal()}
-                    <Header
-                    backgroundColor = {'#9c8210'}
-                    centerComponent = 
-                    {{
-                        text: 'Barter',
-                        style: { color: '#fff', fontSize: 20 },
-                    }}
+                    <MyHeader 
+                    title = 'Barter' 
+                    navigation = {this.props.navigation}
                     />
                     <View>
                         <TextInput
