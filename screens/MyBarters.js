@@ -42,6 +42,49 @@ export default class MyBarters extends React.Component{
         })
     }
 
+    sendNotification = (itemDetail, requestStatus) => {
+        var requestId = itemDetail.request_id
+        var donorId = itemDetail.donor_id
+        db.collection('notifications').where('request_id', '==', requestId)
+        .where('donor_id', '==', donorId).get()
+        .then((snapshot)=> {
+            snapshot.forEach((doc)=> {
+                var message = ''
+                if(requestStatus === 'itemSent')
+                {
+                    message = this.state.donorName+' sent you the item'
+                }
+                else{
+                    message = this.state.donorName+ ' has shown interest in exchanging the item'
+                }
+                db.collection('notifications').doc(doc.id).update({
+                    message: message,
+                    notification_status: 'unread',
+                    date: firebase.firestore.FieldValue.serverTimestamp()
+                })
+            })  
+        })
+    }
+
+    sendItem = (itemDetails) => {
+        if(itemDetails.request_status === "itemSent")
+        {
+            var requestStatus = 'donorInterested'
+            db.collection('all_donations').doc(itemDetails.doc_id).update({
+                request_status: 'donorInterested'
+            })
+            this.sendNotification(itemDetails, requestStatus)
+        }
+        else{
+            var requestStatus = 'itemSent'
+            db.collection('all_donations').doc(itemDetails.doc_id).update({
+                request_status: 'itemSent'
+            })
+            this.sendNotification(itemDetails, requestStatus)
+        }
+    }
+
+
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({item, i}) => {
@@ -52,7 +95,12 @@ export default class MyBarters extends React.Component{
         leftElement = {<Icon name = 'book' type = 'font-awesome' color = '#696969' />}
         titleStyle = {{color: 'black', fontWeight: 'bold'}}
         rightElement = {
-            <TouchableOpacity style = {styles.button}>
+            <TouchableOpacity 
+            style = {styles.button}
+            onPress = {()=> {
+                this.sendItem()
+            }}
+            >
                 <Text style = {{color: '#ffff'}}>Send Item</Text>
             </TouchableOpacity>
         }

@@ -60,6 +60,20 @@ export default class UserDetailsScreen extends React.Component{
         })
     }
 
+    addNotifications = () => {
+        var message = this.state.userName+' has shown interest in exchanging the item'
+        db.collection('notifications').add({
+            targeted_user_id: this.state.receiverId,
+            donor_id: this.state.userId,
+            request_id: this.state.requestId,
+            book_name: this.state.itemName,
+            date: firebase.firestore.FieldValue.serverTimestamp(),
+            notification_status: 'unread',
+            message: message,
+            item_name: this.state.itemName
+        })
+    }
+
     render()
     {
         return(
@@ -121,6 +135,7 @@ export default class UserDetailsScreen extends React.Component{
                             style = {styles.button}
                             onPress = {()=> {
                                 this.updateItemStatus()
+                                this.addNotifications()
                                 this.props.navigation.navigate('DrawerNavigator')
                             }}
                             >
