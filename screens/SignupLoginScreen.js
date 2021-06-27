@@ -48,6 +48,7 @@ export default class SignupLogin extends React.Component{
                     contact: this.state.contact,
                     address: this.state.address,
                     email_id: this.state.emailId,
+                    isExchangeRequestActive: false
                 })
                 return alert('User added successfully',
                 '',
