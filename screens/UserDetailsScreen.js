@@ -16,6 +16,7 @@ export default class UserDetailsScreen extends React.Component{
             requestId: this.props.navigation.getParam('details')['request_id'],
             itemName: this.props.navigation.getParam('details')["item_name"],
             itemDescription: this.props.navigation.getParam('details')['item_description'],
+            itemValue: this.props.navigation.getParam('details')['item_value'],
             userName: '',
             userContact: '',
             userAddress: '',
@@ -85,7 +86,7 @@ export default class UserDetailsScreen extends React.Component{
                     navigation = {this.props.navigation}
                     />
                 </View>
-                <View style = {{flex: 0.3}}>
+                <View style = {{flex: 0.6}}>
                     <Card
                     title = {'Item Information'}
                     titleStyle = {{fontSize: 20}}
@@ -98,6 +99,11 @@ export default class UserDetailsScreen extends React.Component{
                         <Card>
                             <Text style = {{fontWeight: 'bold'}}>
                                 Description: {this.state.itemDescription}
+                            </Text>
+                        </Card>
+                        <Card>
+                            <Text style = {{fontWeight: 'bold'}}>
+                                Value: {this.state.itemValue}
                             </Text>
                         </Card>
                     </Card>

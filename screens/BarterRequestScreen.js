@@ -12,6 +12,7 @@ export default class BarterRequestScreen extends React.Component{
             userId: firebase.auth().currentUser.email,
             itemName: '',
             itemDescription: '',
+            itemValue: '',
             isExchangeRequestActive: '',
             userDocId: '',
             requestedItemName: '',
@@ -42,7 +43,8 @@ export default class BarterRequestScreen extends React.Component{
             'item_description': itemDescription,
             'request_id': randomRequestId,
             'item_status': 'requested',
-            'date': firebase.firestore.FieldValue.serverTimestamp()
+            'date': firebase.firestore.FieldValue.serverTimestamp(),
+            'item_value': this.state.itemValue
         })
 
         db.collection('users').where('email_id', '==', this.state.userId).get()
@@ -148,6 +150,21 @@ export default class BarterRequestScreen extends React.Component{
         })
     }
 
+    getData = () => {
+        fetch('http://data.fixer.io/api/latest?access_key=f686450866f20da33500fcb2411d00e2')
+        .then(response=> {
+            return response.json()
+        })
+        .then(responseData=> {
+            var currencyCode = this.state.currencyCode
+            var currency = response.rates.INR
+            var value = 69/currency
+            this.setState({
+                itemValue: value
+            })
+        })
+    }
+
     render()
     {
         if(this.state.isExchangeRequestActive === true)
@@ -165,6 +182,12 @@ export default class BarterRequestScreen extends React.Component{
                         </Text>
                         <Text>{this.state.itemStatus}</Text>
                     </View>
+                    <View style = {{borderColor: 'orange', borderWidth: 2, justifyContent: 'center', alignItems: 'center', padding: 10, margin: 10}}>
+                        <Text>
+                            Item Value: 
+                        </Text>
+                        <Text>{this.state.itemValue}</Text>
+                    </View>
                     <TouchableOpacity 
                     style = {{borderWidth: 1, borderColor: 'orange', backgroundColor: 'orange', width: 300, alignSelf: 'center', alignItems: 'center', height: 30, marginTop: 30}}
                     onPress = {()=> {
@@ -181,7 +204,7 @@ export default class BarterRequestScreen extends React.Component{
         else{
             return(
                 
-                <View>
+                <View style = {{flex: 1}}>
                 <MyHeader 
                 title = 'Barter' 
                 navigation = {this.props.navigation}

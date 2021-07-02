@@ -19,6 +19,7 @@ export default class SignupLogin extends React.Component{
             address: '',
             contact: '',
             confirmPassword: '',
+            currencyCode: ''
         }
     }
 
@@ -48,6 +49,7 @@ export default class SignupLogin extends React.Component{
                     contact: this.state.contact,
                     address: this.state.address,
                     email_id: this.state.emailId,
+                    currencyCode: this.state.currencyCode,
                     isExchangeRequestActive: false
                 })
                 return alert('User added successfully',
@@ -118,6 +120,16 @@ export default class SignupLogin extends React.Component{
                             onChangeText = {(text)=> {
                                 this.setState({
                                     address: text
+                                })
+                            }}
+                            />
+                            <TextInput
+                            style = {styles.formTextInput}
+                            placeholder = {'Country currency code'}
+                            maxLength = {20}
+                            onChangeText = {(text)=> {
+                                this.setState({
+                                    currencyCode: text
                                 })
                             }}
                             />
