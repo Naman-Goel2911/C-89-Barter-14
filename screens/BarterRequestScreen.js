@@ -17,7 +17,9 @@ export default class BarterRequestScreen extends React.Component{
             requestedItemName: '',
             itemStatus: '',
             docId: '',
-            requestedItemName: ''
+            requestedItemName: '',
+            userDocId: '',
+            requestId: '',
         }
     }
 
@@ -42,10 +44,21 @@ export default class BarterRequestScreen extends React.Component{
             'item_status': 'requested',
             'date': firebase.firestore.FieldValue.serverTimestamp()
         })
+
+        db.collection('users').where('email_id', '==', this.state.userId).get()
+        .then()
+        .then((snapshot)=> {
+            snapshot.forEach((doc)=>{
+                db.collection('users').doc(doc.id).update({
+                    isExchangeRequestActive: true
+                })
+            })
+        })
         
         this.setState({
             itemName: '',
-            itemDescription: ''
+            itemDescription: '',
+            requestId: randomRequestId
         })
 
         return alert('Barter Requested Successfully');
@@ -56,7 +69,7 @@ export default class BarterRequestScreen extends React.Component{
         .onSnapshot((querySnapshot)=> {
             querySnapshot.forEach((doc)=> {
                 this.setState({
-                    isItemRequestActive: doc.data().isItemRequestActive, 
+                    isExchangeRequestActive: doc.data().isExchangeRequestActive, 
                     userDocId: doc.id
                 })
             })
@@ -97,7 +110,7 @@ export default class BarterRequestScreen extends React.Component{
     }
 
     sendNotification = () => {
-        db.collection('users').where('user_id', '==', this.state.userId).get()
+        db.collection('users').where('email_id', '==', this.state.userId).get()
         .then((snapshot)=> {
             snapshot.forEach((doc)=> {
                 var name = doc.data().first_name
@@ -108,7 +121,7 @@ export default class BarterRequestScreen extends React.Component{
                 .then((snapshot)=> {
                     snapshot.forEach((doc)=> {
                         var donorId = doc.data().donor_id
-                        var itemName = doc.data().book_name
+                        var itemName = doc.data().item_name
 
                         //target user id is the donor id to send notification to the user
                         db.collection('notifications').add({

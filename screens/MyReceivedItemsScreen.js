@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, FlatList} from 'react-native'
+import { Text, View, StyleSheet, FlatList} from 'react-native'
 import MyHeader from '../components/MyHeader'
-import {ListItem, Icon} from 'react-native-elements'
+import {ListItem} from 'react-native-elements'
 import firebase from 'firebase'
 import db from '../config'
 
@@ -26,10 +26,10 @@ export default class MyReceivedItemsScreen extends React.Component{
     }
 
     getReceivedBooksList = () => {
-        this.requestRef = db.collection('receivedBooks').where('user_id', '==', this.state.userId)
+        this.requestRef = db.collection('receivedItems').where('user_id', '==', this.state.userId)
         .where('book_status', '==', 'received')
         .onSnapshot((snapshot)=> {
-            var receivedBooksList = snapshot.docs.map((doc)=> {
+            var receivedBookList = snapshot.docs.map((doc)=> {
                 doc.data()
             })
             this.setState({
@@ -44,8 +44,8 @@ export default class MyReceivedItemsScreen extends React.Component{
         return(
             <ListItem 
             key = {i}
-            title = {item.book_name}
-            subtitle = {item.bookStatus}
+            title = {item.item_name}
+            subtitle = {item.itemStatus}
             titleStyle = {{color: 'black', fontWeigth: 'bold'}}
             bottomDivider
             />
