@@ -7,6 +7,7 @@ import * as ImagePicker from 'expo-image-picker'
 import axios from 'axios'
 import * as Permissions from 'expo-permissions'
 import db from '../config'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 export default class CustomSidebarMenu extends React.Component{
 
@@ -89,7 +90,7 @@ export default class CustomSidebarMenu extends React.Component{
                     }}
                     showEditButton
                     />
-                    <Text style = {{fontWeight: '100', fontSize: 20, paddingTop: 10}}>
+                    <Text style = {{fontWeight: '100', fontSize: RFValue(20), paddingTop: 10}}>
                         {this.state.name}
                     </Text>
                 </View>
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
         padding:10 
     }, 
     logOutText:{ 
-        fontSize: 30, 
+        fontSize: RFValue(30), 
         fontWeight:'bold' 
     }
 })

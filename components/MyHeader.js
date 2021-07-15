@@ -2,6 +2,7 @@ import * as React from 'react';
 import {View} from 'react-native'
 import {Header, Icon, Badge} from 'react-native-elements';
 import db from '../config'
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default class MyHeader extends React.Component {
 
@@ -52,7 +53,7 @@ export default class MyHeader extends React.Component {
             leftComponent = {<Icon name = 'bars' type = 'font-awesome' color = 'red' onPress = {()=> 
                 this.props.navigation.toggleDrawer()
             } />}
-            centerComponent = {{text: this.props.title, style: {color: 'red', fontSize: 20, fontWeight: 'bold'}}}
+            centerComponent = {{text: this.props.title, style: {color: 'red', fontSize: RFValue(20), fontWeight: 'bold'}}}
             rightComponent = {<this.BellIconWithBadge{...this.props} />}
             backgroundColor = 'yellow'
             />

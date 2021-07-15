@@ -4,6 +4,7 @@ import db from '../config'
 import { ListItem} from 'react-native-elements'
 import {Header} from 'react-native-elements'
 import MyHeader from '../components/MyHeader'
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default class SearchScreen extends React.Component{
 
@@ -76,7 +77,7 @@ export default class SearchScreen extends React.Component{
                             this.state.requestedBarterList.length===0
                             ?(
                                 <View style = {styles.subContainer}>
-                                    <Text style = {{fontSize: 20}}>List of all requested books</Text>
+                                    <Text style = {{fontSize: RFValue(20)}}>List of all requested books</Text>
                                 </View>
                             )
                             :(
@@ -96,7 +97,7 @@ export default class SearchScreen extends React.Component{
 const styles = StyleSheet.create({
     subContainer:{ 
         flex:1, 
-        fontSize: 20, 
+        fontSize: RFValue(20), 
         justifyContent:'center', 
         alignItems:'center' 
     }, 

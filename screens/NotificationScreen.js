@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import db from '../config'
 import MyHeader from '../components/MyHeader'
 import SwipableFlatList from '../components/SwipableFlatList'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 export default class NotificationScreen extends React.Component{
 

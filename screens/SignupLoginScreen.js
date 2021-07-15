@@ -4,6 +4,7 @@ import {Header} from 'react-native-elements';
 import * as firebase from 'firebase'
 import db from '../config'
 import MyHeader from '../components/MyHeader'
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default class SignupLogin extends React.Component{
     
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
         height: 40, 
         borderBottomWidth: 1.5, 
         borderColor : '#ff8a65', 
-        fontSize: 20, 
+        fontSize: RFValue(20), 
         margin:10, 
         paddingLeft:10 ,
         alignSelf: 'center'
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
     buttonText:{ 
         color:  '#ffff', 
         fontWeight: '200', 
-        fontSize:   20,
+        fontSize:   RFValue(20),
     }, 
     modalContainer:{ 
         flex:1, 
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
     modalTitle :{ 
         justifyContent:'center', 
         alignSelf:'center', 
-        fontSize:30, 
+        fontSize:RFValue(30), 
         color:'#ff5722', 
         margin:50
     }, 
@@ -316,7 +317,7 @@ const styles = StyleSheet.create({
     }, 
     registerButtonText:{ 
         color:'#ff5722', 
-        fontSize:15, 
+        fontSize:RFValue(15), 
         fontWeight:'bold' 
     }, 
     cancelButton:{ 

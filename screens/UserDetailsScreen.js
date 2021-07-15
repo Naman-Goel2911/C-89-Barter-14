@@ -1,9 +1,9 @@
 import * as React from 'react'
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native'
+import {Text, View, TouchableOpacity, StyleSheet, ScrollView} from 'react-native'
 import firebase from 'firebase'
 import db from '../config'
 import {Header, Icon, Card} from 'react-native-elements'
-import MyHeader from '../components/MyHeader'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 export default class UserDetailsScreen extends React.Component{
 
@@ -21,13 +21,16 @@ export default class UserDetailsScreen extends React.Component{
             userContact: '',
             userAddress: '',
             userRequestDocId: '',
-            userName: ''
+            userName: '',
+            receiverRequestDocId: '',
+            currencyCode: ''
         }
     }
 
     componentDidMount()
     {
         this.getUserDetails()
+        this.getData()
     }
 
     getUserDetails = () => {
@@ -51,6 +54,17 @@ export default class UserDetailsScreen extends React.Component{
         })
     }
 
+    getCurrencyCode = () => {
+        db.collection('users').where('email_id', '==', this.state.userId).get()
+        .then((snapshot)=> {
+            snapshot.forEach((doc)=> {
+                this.setState({
+                    currencyCode: doc.data().currencyCode
+                })
+            })
+        })
+    }
+
     updateItemStatus = () => {
         db.collection('MyBarters').add({
             item_name: this.state.itemName,
@@ -59,6 +73,25 @@ export default class UserDetailsScreen extends React.Component{
             exchanger_address: this.state.userAddress,
             exchanger_name2: this.state.userId,
             request_status: 'donorInterested'
+        })
+        db.collection('itemRequests').doc(this.state.receiverRequestDocId).update({
+            item_status: 'donorInterested'
+        })
+    }
+
+    getData = () => {
+        fetch('http://data.fixer.io/api/latest?access_key=f686450866f20da33500fcb2411d00e2')
+        .then(response=> {
+            return response.json()
+        })
+        .then(responseData=> {
+            var currencyCode = this.state.currencyCode
+            var currency = responseData.rates.INR
+            var value = 69/currency
+            var valueOfCurrencyCode = Math.round(value)
+            this.setState({
+                itemValue: valueOfCurrencyCode
+            })
         })
     }
 
@@ -79,76 +112,132 @@ export default class UserDetailsScreen extends React.Component{
     render()
     {
         return(
-            <View style = {{flex: 1}}>
+            <ScrollView style = {{flex: 1}}>
                  <View style = {{flex: 0.1}}>
-                    <MyHeader 
-                    title = 'Barter' 
-                    navigation = {this.props.navigation}
+                 <Header
+                  leftComponent={
+                    <Icon
+                      name="arrow-left"
+                      type="feather"
+                      color="#ffffff"
+                      onPress={() => this.props.navigation.goBack()}
                     />
+                  }
+                  centerComponent={{
+                    text: "Barter",
+                    style: {
+                      color: "#ffffff",
+                      fontSize: RFValue(20),
+                      fontWeight: "bold",
+                    },
+                  }}
+                  backgroundColor="#32867d"
+                />
                 </View>
-                <View style = {{flex: 0.6}}>
-                    <Card
-                    title = {'Item Information'}
-                    titleStyle = {{fontSize: 20}}
+                <View
+                    style={{
+                      flex: 0.6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontWeight: "500",
+                        fontSize: RFValue(25),
+                        textAlign: "center",
+                      }}
                     >
-                        <Card>
-                            <Text style = {{fontWeight: 'bold'}}>
-                                Name: {this.state.itemName}
-                            </Text>
-                        </Card>
-                        <Card>
-                            <Text style = {{fontWeight: 'bold'}}>
-                                Description: {this.state.itemDescription}
-                            </Text>
-                        </Card>
-                        <Card>
-                            <Text style = {{fontWeight: 'bold'}}>
-                                Value: {this.state.itemValue}
-                            </Text>
-                        </Card>
-                    </Card>
-                </View>
+                      {this.state.itemName}
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: "400",
+                        fontSize: RFValue(15),
+                        textAlign: "center",
+                        marginTop: RFValue(15),
+                      }}
+                    >
+                      {this.state.itemDescription}
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: "400",
+                        fontSize: RFValue(15),
+                        textAlign: "center",
+                        marginTop: RFValue(15),
+                      }}
+                    >
+                      {this.state.itemValue}
+                    </Text>
+                  </View>
                 <View style = {{flex: 0.3}}>
-                <Card
-                    title = {'Receiver Information'}
-                    titleStyle = {{fontSize: 20}}
+                <View
+                  style={{
+                    flex: 0.7,
+                    padding: RFValue(20),
+                  }}
+                >
+                  <View style={{ flex: 0.7 ,justifyContent:'center',alignItems:'center',marginTop:RFValue(50),borderWidth:1,borderColor:'#deeedd',padding:RFValue(10)}}>
+                    <Text
+                      style={{
+                        fontWeight: "500",
+                        fontSize: RFValue(30),
+                      }}
                     >
-                        <Card>
-                            <Text style = {{fontWeight: 'bold'}}>
-                                Name: {this.state.receiverId}
-                            </Text>
-                        </Card>
-                        <Card>
-                            <Text style = {{fontWeight: 'bold'}}>
-                                Contact: {this.state.userContact}
-                            </Text>
-                        </Card>
-                        <Card>
-                            <Text style = {{fontWeight: 'bold'}}>
-                                Address: {this.state.userAddress}
-                            </Text>
-                        </Card>
-                    </Card>
+                      Reciever Information
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: "400",
+                        fontSize: RFValue(20),
+                        marginTop: RFValue(30),
+                      }}
+                    >
+                      Name : {this.state.userName}
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: "400",
+                        fontSize: RFValue(20),
+                        marginTop: RFValue(30),
+                      }}
+                    >
+                      Contact: {this.state.userContact}
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: "400",
+                        fontSize: RFValue(20),
+                        marginTop: RFValue(30),
+                      }}
+                    >
+                      Address: {this.state.userAddress}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 0.3,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {this.state.recieverId !== this.state.userId ? (
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                          this.updateBookStatus();
+                          this.addNotification();
+                          this.props.navigation.navigate("Home");
+                        }}
+                      >
+                        <Text>I want to Barter</Text>
+                      </TouchableOpacity>
+                    ) : null}
+                  </View>
                 </View>
-                <View style = {styles.buttonContainer}>
-                    {
-                        this.state.receiverId !== this.state.userId
-                        ?(
-                            <TouchableOpacity
-                            style = {styles.button}
-                            onPress = {()=> {
-                                this.updateItemStatus()
-                                this.addNotifications()
-                                this.props.navigation.navigate('DrawerNavigator')
-                            }}
-                            >
-                                <Text>I want to donate</Text>
-                            </TouchableOpacity>
-                        )
-                        : null
-                    }
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }

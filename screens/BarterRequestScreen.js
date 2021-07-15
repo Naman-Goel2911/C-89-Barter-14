@@ -60,6 +60,7 @@ export default class BarterRequestScreen extends React.Component{
         this.setState({
             itemName: '',
             itemDescription: '',
+            itemValue: '',
             requestId: randomRequestId
         })
 
@@ -88,6 +89,7 @@ export default class BarterRequestScreen extends React.Component{
                         requestId: doc.data().request_id,
                         requestedItemName: doc.data().item_name,
                         itemStatus: doc.data().item_status,
+                        itemValue: doc.data().item_value,
                         docId: doc.id
                     })
                 }
@@ -147,21 +149,6 @@ export default class BarterRequestScreen extends React.Component{
             request_id: requestId,
             item_name: itemName,
             item_status: 'received'
-        })
-    }
-
-    getData = () => {
-        fetch('http://data.fixer.io/api/latest?access_key=f686450866f20da33500fcb2411d00e2')
-        .then(response=> {
-            return response.json()
-        })
-        .then(responseData=> {
-            var currencyCode = this.state.currencyCode
-            var currency = response.rates.INR
-            var value = 69/currency
-            this.setState({
-                itemValue: value
-            })
         })
     }
 
@@ -231,6 +218,17 @@ export default class BarterRequestScreen extends React.Component{
                         })
                     }}
                     value = {this.state.itemDescription}
+                    />
+                    <TextInput 
+                    style = {styles.formTextInput}
+                    placeholder = 'Item Value'
+                    maxLength = {10}
+                    onChangeText = {(text)=> {
+                        this.setState({
+                            itemValue: text
+                        })
+                    }}
+                    value = {this.state.itemValue}
                     />
                     <TouchableOpacity
                     style = {styles.button}

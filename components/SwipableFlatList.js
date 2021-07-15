@@ -3,6 +3,7 @@ import {Animated, Dimensions, StyleSheet, Text, TouchableOpacity, View} from "re
 import { ListItem, Icon } from "react-native-elements";
 import { SwipeListView } from "react-native-swipe-list-view";
 import db from "../config";
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default class SwipableFlatList extends React.Component{
     constructor(props)
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     backTextWhite: {
       color: "#FFF",
       fontWeight: "bold",
-      fontSize: 15,
+      fontSize: RFValue(15),
       textAlign: "center",
       alignSelf: "flex-start"
     },

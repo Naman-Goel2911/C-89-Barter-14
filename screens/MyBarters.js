@@ -4,6 +4,7 @@ import {Header, ListItem, Icon} from 'react-native-elements'
 import firebase from 'firebase'
 import db from '../config'
 import MyHeader from '../components/MyHeader'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 export default class MyBarters extends React.Component{
     static navigationOptions = { header: null }
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         color: 'red', 
-        fontSize: 20, 
+        fontSize: RFValue(20), 
         fontWeight: 'bold'
     }
 })

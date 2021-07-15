@@ -13,7 +13,7 @@ export const AppStackNavigator = createStackNavigator({
     UserDetails: {
         screen: UserDetailsScreen,
         navigationOptions: {
-            headerShown: false
+            headerShown: true
         }
     },
 },
